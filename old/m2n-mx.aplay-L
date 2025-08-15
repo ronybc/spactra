@@ -1,0 +1,49 @@
+default
+    Playback/recording through the PulseAudio sound server
+pulse
+    Playback/recording through the PulseAudio sound server
+front:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    Front speakers
+surround40:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    4.0 Surround output to Front and Rear speakers
+surround41:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    4.1 Surround output to Front, Rear and Subwoofer speakers
+surround50:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    5.0 Surround output to Front, Center and Rear speakers
+surround51:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    5.1 Surround output to Front, Center, Rear and Subwoofer speakers
+surround71:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    7.1 Surround output to Front, Center, Side, Rear and Woofer speakers
+iec958:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Digital
+    IEC958 (S/PDIF) Digital Audio Output
+dmix:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    Direct sample mixing device
+dmix:CARD=NVidia,DEV=1
+    HDA NVidia, ALC662 rev1 Digital
+    Direct sample mixing device
+dsnoop:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    Direct sample snooping device
+dsnoop:CARD=NVidia,DEV=1
+    HDA NVidia, ALC662 rev1 Digital
+    Direct sample snooping device
+hw:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    Direct hardware device without any conversions
+hw:CARD=NVidia,DEV=1
+    HDA NVidia, ALC662 rev1 Digital
+    Direct hardware device without any conversions
+plughw:CARD=NVidia,DEV=0
+    HDA NVidia, ALC662 rev1 Analog
+    Hardware device with all software conversions
+plughw:CARD=NVidia,DEV=1
+    HDA NVidia, ALC662 rev1 Digital
+    Hardware device with all software conversions

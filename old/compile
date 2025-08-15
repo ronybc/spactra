@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+astyle -A1 -t $1.c
+
+gcc -std=gnu99 -pedantic -c -g $1.c
+
+#gcc $1.o -lasound -lfftw3 -lm
+gcc $1.o `pkg-config --cflags --libs alsa fftw3`
+
+if [ $? -ne 0 ]; then
+  echo "Errors linking and loading "
+  exit
+fi
+
+rm $1.o
+mv a.out $1
+strip $1
+
+
