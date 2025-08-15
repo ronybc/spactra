@@ -1,0 +1,9 @@
+#!/bin/bash
+
+killall -s SIGKILL sox >/dev/null 2>&1
+killall -s SIGKILL play >/dev/null 2>&1
+export AUDIODEV="hw:CARD=`cat /proc/asound/card0/id`,DEV=0"
+echo AUDIODEV=\"$AUDIODEV\"
+play -q -n synth 10 sine 1000 rate -v 96000 >/dev/null 2>&1 &
+./spactra -b 7 -r 96000 |gnuplot > spactra.png
+gthumb spactra.png
