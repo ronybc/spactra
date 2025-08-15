@@ -1,0 +1,53 @@
+aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+
+sox -r 192000 -c2 -n -p synth 10 sine 20:20000 |sox -V - -t wavpcm - |aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+sox -r 192000 -c2 -n -p synth 300 sine 1000 |sox -V - -t wavpcm - |aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+sox -V4 - -n spectrogram -w Kaiser -x5000 -y1200 -z180 -h -o spectrum.png
+
+rec -c 2 -b 32 -r 192000 -e signed -t wavpcm - trim 0 00:02 |sox -V - -n spectrogram -w Kaiser -x5000 -y1200 -z180 -h -o spectrum.png
+
+
+
+
+
+
+rec -c 2 -b 32 -r 192000 -e signed -t wavpcm - trim 0 00:20 |sox -V - -n remix 1 spectrogram -w Kaiser -x5000 -y1200 -z120 -h -o spectrum.png ; eog spectrum.png
+
+
+rec -c 2 -b 32 -r 192000 -e signed -t wavpcm - trim 0 00:20 |sox -V - -n remix 1 rate -v 9800 spectrogram -w Kaiser -x5000 -y1200 -z120 -h -o spectrum.png ; eog spectrum.png
+
+rec -c 2 -b 32 -r 192000 -e signed -t wavpcm rec.wav trim 0 00:15 ;sox -V rec.wav spectrogram -w Kaiser -x5000 -y1200 -z120 -h -o spectrum.png ; eog spectrum.png
+
+
+sox -r 192000 -c2 -n -t wavpcm - synth 10 sine 0+20000 |aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+sox -r 192000 -c2 -n -p synth 10 sine 100 |sox -r 192000 -c2 -n -t wavpcm - synth 10 sine mix 4000 |aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+
+
+
+
+rec -c 2 -b 32 -r 192000 -L -e signed -t wavpcm rec.wav trim 0 00:15 &
+
+sleep 3
+
+sox -c 2 -b 32 -r 192000 -L -e signed -n -t wavpcm - synth 10 sine 0+20000 \
+| aplay --disable-resample --disable-channels --disable-format --disable-softvol \
+        --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+sox -V rec.wav spectrogram -w Kaiser -x5000 -y1200 -z120 -h -o spectrum.png ; eog spectrum.png
+
+
+
+sox -c 2 -b 32 -r 192000 -L -e signed -n -t wavpcm - synth 100 sine 700 synth 100 sine mix 8000 |aplay --disable-resample --disable-channels --disable-format --disable-softvol --test-nowait -V mono -D hw:CARD=SB,DEV=0 -q -t wav -
+
+
+cat /proc/asound/card0/id
+export AUDIODEV="hw:CARD=PCH,DEV=0"
+play -V3 -n synth 10 sine 1000 gain -3 rate -v 96000
+
+
+

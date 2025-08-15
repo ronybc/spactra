@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# for n in E2 A2 D3 G3 B3 E4; do
+# play -n synth 4 pluck $n ; done
+# exit
+
+SRATE="96000"
+
+killall -s SIGKILL sox >/dev/null 2>&1 
+killall -s SIGKILL play >/dev/null 2>&1
+export AUDIODEV="hw:CARD=`cat /proc/asound/card0/id`,DEV=0"
+echo AUDIODEV=\"$AUDIODEV\"
+
+rec -c2 -b32 -r $SRATE -n trim 0 00:15 remix 1 spectrogram -w Kaiser -W10 -x5000 -y1025 -z160 -o spectrum.png &
+
+sleep 1
+play -q -n synth 10 sine 0+20000 rate -v $SRATE >/dev/null 2>&1
+play -q -n synth 1 sine 1000 rate -v $SRATE >/dev/null 2>&1
+play -q -n synth 1 sine 700 synth sine mix 8000 rate -v $SRATE >/dev/null 2>&1
+sleep 3
+
+gthumb spectrum.png
